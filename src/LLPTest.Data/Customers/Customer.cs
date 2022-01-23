@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace LLPTest.Data.Customers
 {
     public class Customer
     {
-        private Customer() 
+        private Customer()
         {
             Person = default!;
             ContactDetails = default!;
@@ -12,7 +13,7 @@ namespace LLPTest.Data.Customers
 
         public Guid Id { get; private set; }
 
-        public Person Person { get; private set; }
+        public Person Person { get; }
         public ContactDetails ContactDetails { get; private set; }
 
         public Country Country { get; private set; } = null!;
@@ -23,22 +24,12 @@ namespace LLPTest.Data.Customers
 
         public Customer(Person person, ContactDetails contactDetails, Guid countryId)
         {
+            _ = person ?? throw new ArgumentNullException(nameof(person));
             if (countryId.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(countryId));
 
-            UpdatePerson(person);
-            UpdateContactDetails(contactDetails);
+            Person = person;
             CountryId = countryId;
-        }
-
-        [MemberNotNull(nameof(Person))]
-        private void UpdatePerson(Person person)
-        {
-            _ = person ?? throw new ArgumentNullException(nameof(person));
-
-            if (!person.Equals(Person))
-            {
-                Person = person;
-            }
+            UpdateContactDetails(contactDetails);
         }
 
         [MemberNotNull(nameof(ContactDetails))]
@@ -81,10 +72,20 @@ namespace LLPTest.Data.Customers
         {
             if (addressId.Equals(Guid.Empty)) throw new ArgumentException(null, nameof(addressId));
 
-            var address = Addresses.FirstOrDefault(x=>x.Id == addressId);
+            var address = Addresses.FirstOrDefault(x => x.Id == addressId);
             if (address is null) throw new KeyNotFoundException(nameof(addressId));
 
             _addresses.Remove(address);
         }
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this, _jsonOptions);
+        }
+
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
     }
 }

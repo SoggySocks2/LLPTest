@@ -1,4 +1,5 @@
 ﻿using LLPTest.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LLPTest.ConsoleApp
 {
@@ -13,7 +14,27 @@ namespace LLPTest.ConsoleApp
 
         public async Task RunAsync()
         {
-            await Task.CompletedTask;
+            var customer = await _dbContext.Customers
+                .Include(x => x.Addresses)
+                .Include(x => x.Country)
+                .FirstOrDefaultAsync();
+
+            var country = await _dbContext.Countries
+                .Include(x => x.Customers)
+                .FirstOrDefaultAsync();
+
+            Print(customer);
+            Print(country);
+        }
+
+        private static void Print<T>(T input)
+        {
+            Console.WriteLine();
+            Console.WriteLine("##########################################################");
+            Console.WriteLine($"{typeof(T).Name}:");
+            Console.WriteLine(input?.ToString() ?? "Null value!");
+            Console.WriteLine("##########################################################");
+            Console.WriteLine();
         }
     }
 }
