@@ -21,6 +21,7 @@ namespace LLPTest.Data
         public DbSet<RetailerGroup> RetailerGroups { get; set; } = null!;
         public DbSet<Brand> Brands { get; set; } = null!;
 
+        public DbSet<CustomerRetailerSite> CustomerRetailerSites { get; set; } = null!;
 
         public AppDbContext()
         {
