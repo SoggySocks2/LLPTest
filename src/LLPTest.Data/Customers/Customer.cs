@@ -4,6 +4,12 @@ namespace LLPTest.Data.Customers
 {
     public class Customer
     {
+        private Customer() 
+        {
+            Person = default!;
+            ContactDetails = default!;
+        }
+
         public Guid Id { get; private set; }
 
         public Person Person { get; private set; }
@@ -51,6 +57,14 @@ namespace LLPTest.Data.Customers
             _ = address ?? throw new ArgumentNullException(nameof(address));
 
             _addresses.Add(address);
+        }
+
+        public void AddAddresses(IEnumerable<Address> addresses)
+        {
+            foreach (var address in addresses)
+            {
+                AddAddress(address);
+            }
         }
 
         public void UpdateAddress(Guid addressId, string street)
