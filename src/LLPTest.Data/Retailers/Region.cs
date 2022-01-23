@@ -32,5 +32,13 @@ namespace LLPTest.Data.Retailers
 
             _areas.Add(area);
         }
+
+        public void AddAreas(IEnumerable<Area> areas)
+        {
+            foreach (var area in areas)
+            {
+                AddArea(area);
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace LLPTest.Data.Retailers
         public Brand Brand { get; private set; } = null!;
         public Guid BrandId { get; private set; }
 
-        public RetailerSite(string name, Guid brandId)
+        public RetailerSite(Guid brandId, string name)
         {
             if (brandId.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(brandId));
 

@@ -29,5 +29,13 @@ namespace LLPTest.Data.Retailers
 
             _regions.Add(region);
         }
+
+        public void AddRegions(IEnumerable<Region> regions)
+        {
+            foreach (var region in regions)
+            {
+                AddRegion(region);
+            }
+        }
     }
 }
