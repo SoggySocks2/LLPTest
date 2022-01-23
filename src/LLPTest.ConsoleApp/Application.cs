@@ -23,8 +23,14 @@ namespace LLPTest.ConsoleApp
                 .Include(x => x.Customers)
                 .FirstOrDefaultAsync();
 
+            var blog = await _dbContext.Blogs
+                .Include(x => x.Posts)
+                .Include(x => x.Author)
+                .FirstOrDefaultAsync();
+
             Print(customer);
             Print(country);
+            Print(blog);
         }
 
         private static void Print<T>(T input)

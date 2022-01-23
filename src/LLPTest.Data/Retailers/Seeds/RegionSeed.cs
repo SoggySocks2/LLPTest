@@ -5,6 +5,7 @@
         public static List<Region> GetTree(List<Guid> retailerGroupIds, List<Guid> brandIds, int count, int collectionCount)
         {
             var regions = Get(1, count);
+
             var areas = AreaSeed.GetTree(retailerGroupIds, brandIds, count * collectionCount, collectionCount);
 
             for (int i = 1; i <= count; i++)

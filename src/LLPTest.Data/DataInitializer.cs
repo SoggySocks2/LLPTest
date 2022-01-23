@@ -1,4 +1,5 @@
-﻿using LLPTest.Data.Customers;
+﻿using LLPTest.Data.Blogs.Seeds;
+using LLPTest.Data.Customers;
 using LLPTest.Data.Customers.Seeds;
 using LLPTest.Data.Retailers.Seeds;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace LLPTest.Data
                     await SeedCustomerAggregateAsync();
                     await SeedRetailerAggregateAsync();
                     await SeedRelationshipsAsync();
+                    await SeedBlogAggregateAsync();
                 }
             }
             catch (Exception ex)
@@ -52,7 +54,7 @@ namespace LLPTest.Data
             _dbContext.Countries.AddRange(countries);
             await _dbContext.SaveChangesAsync();
 
-            _dbContext.Customers.AddRange(CustomerSeed.Get(genders, countries, 100, 3));
+            _dbContext.Customers.AddRange(CustomerSeed.GetTree(genders, countries, 100, 3));
             await _dbContext.SaveChangesAsync();
         }
 
@@ -85,6 +87,26 @@ namespace LLPTest.Data
             }
 
             _dbContext.CustomerRetailerSites.AddRange(relationships);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        private async Task SeedBlogAggregateAsync()
+        {
+            if (await _dbContext.Authors.AnyAsync()) return;
+
+            _dbContext.Authors.AddRange(AuthorSeed.Get(3));
+            await _dbContext.SaveChangesAsync();
+
+            _dbContext.Blogs.AddRange(BlogSeed.Get(_dbContext.Authors.Local.ToList(), 9));
+            await _dbContext.SaveChangesAsync();
+
+            // Just to preserve the order in the generated keys.
+            var blogs = _dbContext.Blogs.Local.ToList();
+            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 1, 9));
+            await _dbContext.SaveChangesAsync();
+            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 10, 18));
+            await _dbContext.SaveChangesAsync();
+            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 19, 27));
             await _dbContext.SaveChangesAsync();
         }
     }

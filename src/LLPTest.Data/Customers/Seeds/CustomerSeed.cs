@@ -2,7 +2,7 @@
 {
     public static class CustomerSeed
     {
-        public static List<Customer> Get(List<Gender> genders, List<Country> countries, int count, int collectionCount)
+        public static List<Customer> GetTree(List<Gender> genders, List<Country> countries, int count, int collectionCount)
         {
             var genderIds = genders.Select(x=>x.Id).ToList();
             var countriesIds = countries.Select(x=>x.Id).ToList();

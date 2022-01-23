@@ -1,4 +1,5 @@
-﻿using LLPTest.Data.Customers;
+﻿using LLPTest.Data.Blogs;
+using LLPTest.Data.Customers;
 using LLPTest.Data.Customers.Configuration;
 using LLPTest.Data.Retailers;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,11 @@ namespace LLPTest.Data
         public DbSet<Brand> Brands { get; set; } = null!;
 
         public DbSet<CustomerRetailerSite> CustomerRetailerSites { get; set; } = null!;
+
+        public DbSet<Blog> Blogs { get; set; } = null!;
+        public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<Post> Posts { get; set; } = null!;
+
 
         public AppDbContext()
         {
