@@ -7,10 +7,10 @@ namespace LLPTest.Data.Retailers
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public Retailer Retailer { get; private set; } = null!;
+        public Retailer Retailer { get; private set; } = default!;
         public Guid RetailerId { get; private set; }
 
-        public Brand Brand { get; private set; } = null!;
+        public Brand Brand { get; private set; } = default!;
         public Guid BrandId { get; private set; }
 
         public IEnumerable<RetailerCode> RetailerCodes => _retailerCodes.AsEnumerable();

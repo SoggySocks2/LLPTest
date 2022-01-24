@@ -7,7 +7,7 @@ namespace LLPTest.Data.Retailers
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public Market Market { get; private set; } = null!;
+        public Market Market { get; private set; } = default!;
         public Guid MarketId { get; private set; }
 
         public IEnumerable<Area> Areas => _areas.AsEnumerable();

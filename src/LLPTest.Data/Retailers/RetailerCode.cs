@@ -7,7 +7,7 @@ namespace LLPTest.Data.Retailers
         public Guid Id { get; set; }
         public string Code { get; private set; }
 
-        public RetailerSite RetailerSite { get; private set; } = null!;
+        public RetailerSite RetailerSite { get; private set; } = default!;
         public Guid RetailerSiteId { get; private set; }
 
         public RetailerCode(string code)

@@ -16,7 +16,7 @@ namespace LLPTest.Data.Customers
         public Person Person { get; }
         public ContactDetails ContactDetails { get; private set; }
 
-        public Country Country { get; private set; } = null!;
+        public Country Country { get; private set; } = default!;
         public Guid CountryId { get; private set; }
 
         public IEnumerable<Address> Addresses => _addresses.AsEnumerable();

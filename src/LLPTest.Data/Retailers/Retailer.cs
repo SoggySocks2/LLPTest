@@ -7,10 +7,10 @@ namespace LLPTest.Data.Retailers
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public Area Area { get; private set; } = null!;
+        public Area Area { get; private set; } = default!;
         public Guid AreaId { get; private set; }
 
-        public RetailerGroup RetailerGroup { get; private set; } = null!;
+        public RetailerGroup RetailerGroup { get; private set; } = default!;
         public Guid RetailerGroupId { get; private set; }
 
         public IEnumerable<RetailerSite> RetailerSites => _retailerSites.AsEnumerable();

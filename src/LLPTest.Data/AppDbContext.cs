@@ -10,23 +10,23 @@ namespace LLPTest.Data
     {
         private readonly static string _connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=LLPTest;Integrated Security=SSPI;ConnectRetryCount=0;";
 
-        public DbSet<Gender> Genders { get; set; } = null!;
-        public DbSet<Country> Countries { get; set; } = null!;
-        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Gender> Genders { get; set; } = default!;
+        public DbSet<Country> Countries { get; set; } = default!;
+        public DbSet<Customer> Customers { get; set; } = default!;
 
-        public DbSet<Market> Markets { get; set; } = null!;
-        public DbSet<Region> Regions { get; set; } = null!;
-        public DbSet<Area> Areas { get; set; } = null!;
-        public DbSet<Retailer> Retailers { get; set; } = null!;
-        public DbSet<RetailerSite> RetailerSites { get; set; } = null!;
-        public DbSet<RetailerGroup> RetailerGroups { get; set; } = null!;
-        public DbSet<Brand> Brands { get; set; } = null!;
+        public DbSet<Market> Markets { get; set; } = default!;
+        public DbSet<Region> Regions { get; set; } = default!;
+        public DbSet<Area> Areas { get; set; } = default!;
+        public DbSet<Retailer> Retailers { get; set; } = default!;
+        public DbSet<RetailerSite> RetailerSites { get; set; } = default!;
+        public DbSet<RetailerGroup> RetailerGroups { get; set; } = default!;
+        public DbSet<Brand> Brands { get; set; } = default!;
 
-        public DbSet<CustomerRetailerSite> CustomerRetailerSites { get; set; } = null!;
+        public DbSet<CustomerRetailerSite> CustomerRetailerSites { get; set; } = default!;
 
-        public DbSet<Blog> Blogs { get; set; } = null!;
-        public DbSet<Author> Authors { get; set; } = null!;
-        public DbSet<Post> Posts { get; set; } = null!;
+        public DbSet<Blog> Blogs { get; set; } = default!;
+        public DbSet<Author> Authors { get; set; } = default!;
+        public DbSet<Post> Posts { get; set; } = default!;
 
 
         public AppDbContext()

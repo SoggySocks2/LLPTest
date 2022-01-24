@@ -7,7 +7,7 @@ namespace LLPTest.Data.Retailers
         public Guid Id { get; private set; }
         public string Name { get; private set; }
 
-        public Region Region { get; private set; } = null!;
+        public Region Region { get; private set; } = default!;
         public Guid RegionId { get; private set; }
 
         public IEnumerable<Retailer> Retailers => _retailers.AsEnumerable();

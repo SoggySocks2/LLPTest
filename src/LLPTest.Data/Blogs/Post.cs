@@ -9,7 +9,7 @@ namespace LLPTest.Data.Blogs
         public string Title { get; set; }
 
         [JsonIgnore]
-        public Blog Blog { get; set; } = null!;
+        public Blog Blog { get; set; } = default!;
         public int BlogId { get; set; }
 
         public Post(string title)

@@ -7,7 +7,7 @@ namespace LLPTest.Data.Blogs
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Author Author { get; set; } = null!;
+        public Author Author { get; set; } = default!;
         public int AuthorId { get; set; }
 
         public List<Post> Posts { get; } = new();

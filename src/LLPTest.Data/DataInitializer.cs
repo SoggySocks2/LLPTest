@@ -85,6 +85,11 @@ namespace LLPTest.Data
             for (int i = 0; i < customerIds.Count; i++)
             {
                 relationships.Add(new CustomerRetailerSite(customerIds[i], retailerSiteIds[i % retailerSiteIds.Count]));
+
+                // Let's just one not active for each customer.
+                var relationship = new CustomerRetailerSite(customerIds[i], retailerSiteIds[(i + 1) % retailerSiteIds.Count]);
+                relationship.EndRelationship();
+                relationships.Add(relationship);
             }
 
             _dbContext.CustomerRetailerSites.AddRange(relationships);

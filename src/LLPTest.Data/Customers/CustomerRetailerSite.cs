@@ -1,4 +1,5 @@
 ﻿using LLPTest.Data.Retailers;
+using System.Text.Json.Serialization;
 
 namespace LLPTest.Data.Customers
 {
@@ -8,8 +9,11 @@ namespace LLPTest.Data.Customers
         public Guid RetailerSiteId { get; private set; }
         public bool IsActive { get; private set; }
 
-        public Customer Customer { get; private set; } = null!;
-        public RetailerSite RetailerSite { get; private set; } = null!;
+        [JsonIgnore]
+        public Customer Customer { get; private set; } = default!;
+
+        [JsonIgnore]
+        public RetailerSite RetailerSite { get; private set; } = default!;
 
         public CustomerRetailerSite(Guid customerId, Guid retailerSiteId)
         {

@@ -17,6 +17,7 @@ namespace LLPTest.ConsoleApp
             var customer = await _dbContext.Customers
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
+                .Include(x => x.CustomerRetailerSites)
                 .FirstOrDefaultAsync();
 
             var country = await _dbContext.Countries
