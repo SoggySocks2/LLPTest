@@ -25,20 +25,5 @@ namespace LLPTest.Data.Retailers
 
             Name = name;
         }
-
-        public void AddRetailer(Retailer retailer)
-        {
-            _ = retailer ?? throw new ArgumentNullException(nameof(retailer));
-
-            _retailers.Add(retailer);
-        }
-
-        public void AddRetailers(IEnumerable<Retailer> retailers)
-        {
-            foreach (var retailer in retailers)
-            {
-                AddRetailer(retailer);
-            }
-        }
     }
 }

@@ -2,15 +2,15 @@
 {
     public static class PostSeed
     {
-        public static List<Post> Get(List<Blog> blogs, int from, int to)
+        public static List<Post> Get(List<int> blogIds, int from, int to)
         {
             var posts = new List<Post>();
 
             for (var i = from; i <= to; i++)
             {
                 var post = new Post($"Post {i}");
+                post.BlogId = blogIds[(i - 1) % blogIds.Count];
                 posts.Add(post);
-                post.Blog = blogs[(i - 1) % blogs.Count];
             }
 
             posts.Reverse();

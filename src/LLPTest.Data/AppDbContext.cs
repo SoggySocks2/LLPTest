@@ -8,7 +8,7 @@ namespace LLPTest.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly static string _connectionString = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=LLPTest;Integrated Security=SSPI;ConnectRetryCount=0;";
+        private readonly static string _connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=LLPTest;Integrated Security=SSPI;ConnectRetryCount=0;";
 
         public DbSet<Gender> Genders { get; set; } = null!;
         public DbSet<Country> Countries { get; set; } = null!;

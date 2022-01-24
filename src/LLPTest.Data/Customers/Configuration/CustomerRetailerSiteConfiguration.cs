@@ -9,8 +9,8 @@ namespace LLPTest.Data.Customers.Configuration
         {
             builder.ToTable(nameof(CustomerRetailerSite));
 
-            builder.HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.ClientNoAction);
-            builder.HasOne(x => x.RetailerSite).WithMany().OnDelete(DeleteBehavior.ClientNoAction);
+            builder.HasOne(x => x.Customer).WithMany(x=>x.CustomerRetailerSites).HasForeignKey(x=>x.CustomerId).OnDelete(DeleteBehavior.ClientNoAction);
+            builder.HasOne(x => x.RetailerSite).WithMany().HasForeignKey(x=>x.RetailerSiteId).OnDelete(DeleteBehavior.ClientNoAction);
 
             builder.HasKey(x => new { x.CustomerId, x.RetailerSiteId });
         }

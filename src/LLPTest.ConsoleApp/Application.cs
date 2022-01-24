@@ -28,6 +28,26 @@ namespace LLPTest.ConsoleApp
                 .Include(x => x.Author)
                 .FirstOrDefaultAsync();
 
+            var areas = await _dbContext.Areas
+                .Include(x => x.Region.Market)
+                .ToListAsync();
+
+            var markets = await _dbContext.Markets
+                        .Include(x => x.Regions)
+                        .ThenInclude(x => x.Areas)
+                        .ThenInclude(x => x.Retailers)
+                        .ThenInclude(x => x.RetailerSites)
+                        .ToListAsync();
+
+            var retailers = await _dbContext.Retailers
+                .Include(x => x.Area.Region.Market)
+                .Include(x => x.RetailerGroup)
+                .Include(x => x.RetailerSites)
+                    .ThenInclude(x => x.RetailerCodes)
+                .Include(x => x.RetailerSites)
+                    .ThenInclude(x => x.Brand)
+                .ToListAsync();
+
             Print(customer);
             Print(country);
             Print(blog);

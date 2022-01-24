@@ -2,23 +2,22 @@
 {
     public static class CustomerSeed
     {
-        public static List<Customer> GetTree(List<Gender> genders, List<Country> countries, int count, int collectionCount)
+        public static List<Customer> GetTree(int count, int collectionCount, List<Guid> genderIds, List<Guid> countryIds)
         {
-            var genderIds = genders.Select(x=>x.Id).ToList();
-            var countriesIds = countries.Select(x=>x.Id).ToList();
-            var addresses = AddressSeed.Get(1, count * collectionCount);
-
             var customers = new List<Customer>();
+
+            var addresses = AddressSeed.Get(1, count * collectionCount);
 
             for (var i = 1; i <= count; i++)
             {
-                customers.Add(new Customer
+                var customer = new Customer
                 (
                     new Person($"Firstname {i}", $"Lastname {i}", genderIds[(i - 1) % genderIds.Count]),
                     new ContactDetails($"Email_{i}@local"),
-                    countriesIds[(i - 1) % countriesIds.Count]
-                ));
-                customers[i - 1].AddAddresses(addresses.Skip((i * collectionCount) - collectionCount).Take(collectionCount));
+                    countryIds[(i - 1) % countryIds.Count]
+                );
+                customer.AddAddresses(addresses.Skip((i - 1) * collectionCount).Take(collectionCount));
+                customers.Add(customer);
             }
 
             return customers;

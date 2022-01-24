@@ -29,5 +29,13 @@ namespace LLPTest.Data.Retailers
 
             _retailers.Add(retailer);
         }
+
+        public void AddRetailers(IEnumerable<Retailer> retailers)
+        {
+            foreach (var retailer in retailers)
+            {
+                AddRetailer(retailer);
+            }
+        }
     }
 }

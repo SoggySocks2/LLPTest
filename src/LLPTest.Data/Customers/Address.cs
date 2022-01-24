@@ -7,6 +7,8 @@ namespace LLPTest.Data.Customers
         public Guid Id { get; private set; }
         public string Street { get; private set; }
 
+        public Guid CustomerId { get; private set; }
+
         public Address(string street)
         {
             Update(street);

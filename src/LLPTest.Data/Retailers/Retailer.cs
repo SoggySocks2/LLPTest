@@ -16,12 +16,12 @@ namespace LLPTest.Data.Retailers
         public IEnumerable<RetailerSite> RetailerSites => _retailerSites.AsEnumerable();
         private readonly List<RetailerSite> _retailerSites = new();
 
-        public Retailer(Guid retailerGroupId, string name)
+        public Retailer(Guid areaId, string name)
         {
-            if (retailerGroupId.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(retailerGroupId));
+            if (areaId.Equals(Guid.Empty)) throw new ArgumentNullException(nameof(areaId));
 
             Update(name);
-            RetailerGroupId = retailerGroupId;
+            AreaId = areaId;
         }
 
         [MemberNotNull(nameof(Name))]

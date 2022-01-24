@@ -2,21 +2,21 @@
 {
     public static class RetailerSeed
     {
-        public static List<Retailer> GetTree(List<Guid> retailerGroupIds, List<Guid> brandIds, int count, int collectionCount)
+        public static List<Retailer> GetTree(int count, int collectionCount, List<Guid> retailerGroupIds, List<Guid> brandIds)
         {
-            var retailers = Get(retailerGroupIds, 1, count);
+            var retailers = Get(1, count, retailerGroupIds);
 
-            var retailerSites = RetailerSiteSeed.Get(brandIds, 1, count * collectionCount);
+            var retailerSites = RetailerSiteSeed.Get(1, count * collectionCount, brandIds);
 
-            for (int i = 1; i <= count; i++)
+            for (int i = 0; i < count; i++)
             {
-                retailers[i - 1].AddRetailerSites(retailerSites.Skip((i * collectionCount) - collectionCount).Take(collectionCount));
+                retailers[i].AddRetailerSites(retailerSites.Skip(i * collectionCount).Take(collectionCount));
             }
 
             return retailers;
         }
 
-        public static List<Retailer> Get(List<Guid> retailerGroupIds, int from, int to)
+        public static List<Retailer> Get(int from, int to, List<Guid> retailerGroupIds)
         {
             var retailers = new List<Retailer>();
 

@@ -2,15 +2,15 @@
 {
     public static class MarketSeed
     {
-        public static List<Market> GetTree(List<RetailerGroup> retailerGroups, List<Brand> brands, int count, int collectionCount)
+        public static List<Market> GetTree(int count, int collectionCount)
         {
             var markets = Get(1, count);
 
-            var regions = RegionSeed.GetTree(retailerGroups.Select(x=>x.Id).ToList(), brands.Select(x=>x.Id).ToList(), count * collectionCount, collectionCount);
+            var regions = RegionSeed.GetTree(count * collectionCount, collectionCount);
 
-            for (int i = 1; i <= count; i++)
+            for (int i = 0; i < count; i++)
             {
-                markets[i - 1].AddRegions(regions.Skip((i * collectionCount) - collectionCount).Take(collectionCount));
+                markets[i].AddRegions(regions.Skip(i * collectionCount).Take(collectionCount));
             }
 
             return markets;

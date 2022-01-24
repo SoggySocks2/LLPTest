@@ -2,16 +2,15 @@
 {
     public static class AuthorSeed
     {
-        public static List<Author> Get(int count)
+        public static List<Author> Get(int from, int to)
         {
             var authors = new List<Author>();
 
-            for (var i = 1; i <= count; i++)
+            for (var i = from; i <= to; i++)
             {
                 authors.Add(new Author($"Author {i}"));
             }
 
-            authors.Reverse();
             return authors;
         }
     }

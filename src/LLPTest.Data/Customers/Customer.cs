@@ -22,6 +22,9 @@ namespace LLPTest.Data.Customers
         public IEnumerable<Address> Addresses => _addresses.AsEnumerable();
         private readonly List<Address> _addresses = new();
 
+        public IEnumerable<CustomerRetailerSite> CustomerRetailerSites => _customerRetailerSites.AsEnumerable();
+        private readonly List<CustomerRetailerSite> _customerRetailerSites = new List<CustomerRetailerSite>();
+
         public Customer(Person person, ContactDetails contactDetails, Guid countryId)
         {
             _ = person ?? throw new ArgumentNullException(nameof(person));

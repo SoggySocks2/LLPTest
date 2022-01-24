@@ -47,14 +47,13 @@ namespace LLPTest.Data
         {
             if (await _dbContext.Customers.AnyAsync()) return;
 
-            var genders = GenderSeed.Get(1, 4);
-            var countries = CountrySeed.Get(1, 4);
-
-            _dbContext.Genders.AddRange(genders);
-            _dbContext.Countries.AddRange(countries);
+            _dbContext.Genders.AddRange(GenderSeed.Get(1, 4));
+            _dbContext.Countries.AddRange(CountrySeed.Get(1, 4));
             await _dbContext.SaveChangesAsync();
 
-            _dbContext.Customers.AddRange(CustomerSeed.GetTree(genders, countries, 100, 3));
+            var genderIds = _dbContext.Genders.Local.Select(x=>x.Id).ToList();
+            var countryIds = _dbContext.Countries.Local.Select(x=>x.Id).ToList();
+            _dbContext.Customers.AddRange(CustomerSeed.GetTree(100, 3, genderIds, countryIds));
             await _dbContext.SaveChangesAsync();
         }
 
@@ -62,14 +61,16 @@ namespace LLPTest.Data
         {
             if (await _dbContext.Retailers.AnyAsync()) return;
 
-            var retailerGroups = RetailerGroupSeed.Get(1, 4);
-            var brands = BrandSeed.Get(1, 4);
-
-            _dbContext.RetailerGroups.AddRange(retailerGroups);
-            _dbContext.Brands.AddRange(brands);
+            _dbContext.Brands.AddRange(BrandSeed.Get(1, 4));
             await _dbContext.SaveChangesAsync();
 
-            _dbContext.Markets.AddRange(MarketSeed.GetTree(retailerGroups, brands, 2, 2));
+            // Market -> Region -> Area
+            _dbContext.Markets.AddRange(MarketSeed.GetTree(2, 2));
+            await _dbContext.SaveChangesAsync();
+
+            var areaIds = _dbContext.Areas.Local.Select(x => x.Id).ToList();
+            var brandIds = _dbContext.Brands.Local.Select(x => x.Id).ToList();
+            _dbContext.RetailerGroups.AddRange(RetailerGroupSeed.GetTree(8, 2, areaIds, brandIds));
             await _dbContext.SaveChangesAsync();
         }
 
@@ -94,19 +95,24 @@ namespace LLPTest.Data
         {
             if (await _dbContext.Authors.AnyAsync()) return;
 
-            _dbContext.Authors.AddRange(AuthorSeed.Get(3));
+            var authors = AuthorSeed.Get(1, 3);
+            authors.Reverse(); // To preserve Id ordering while saving.
+            _dbContext.Authors.AddRange(authors);
             await _dbContext.SaveChangesAsync();
 
-            _dbContext.Blogs.AddRange(BlogSeed.Get(_dbContext.Authors.Local.ToList(), 9));
+            var authorIds = _dbContext.Authors.Local.Select(x => x.Id).ToList();
+            var blogs = BlogSeed.Get(authorIds, 1, 9);
+            blogs.Reverse(); // To preserve Id ordering while saving.
+            _dbContext.Blogs.AddRange(blogs);
             await _dbContext.SaveChangesAsync();
 
-            // Just to preserve the order in the generated keys.
-            var blogs = _dbContext.Blogs.Local.ToList();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 1, 9));
+            // Save in chunks to preserve the order in the generated keys.
+            var blogIds = _dbContext.Blogs.Local.Select(x => x.Id).ToList();
+            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 1, 9));
             await _dbContext.SaveChangesAsync();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 10, 18));
+            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 10, 18));
             await _dbContext.SaveChangesAsync();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogs, 19, 27));
+            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 19, 27));
             await _dbContext.SaveChangesAsync();
         }
     }
