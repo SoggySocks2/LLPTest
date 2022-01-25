@@ -26,9 +26,6 @@ namespace LLPTest.Data
 
         public DbSet<Blog> Blogs { get; set; } = default!;
         public DbSet<Author> Authors { get; set; } = default!;
-        public DbSet<Post> Posts { get; set; } = default!;
-        public DbSet<BlogImage> BlogImages { get; set; } = default!;
-
         public AppDbContext()
         {
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LLPTest.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220125151529_AppDb-v1")]
+    [Migration("20220125184912_AppDb-v1")]
     partial class AppDbv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

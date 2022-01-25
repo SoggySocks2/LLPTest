@@ -14,45 +14,15 @@ namespace LLPTest.ConsoleApp
 
         public async Task RunAsync()
         {
-            var customer = await _dbContext.Customers
-                .Include(x => x.Addresses)
-                .Include(x => x.Country)
-                .Include(x => x.CustomerRetailerSites)
-                .FirstOrDefaultAsync();
+            await Task.CompletedTask;
 
-            var country = await _dbContext.Countries
-                .Include(x => x.Customers)
-                .FirstOrDefaultAsync();
-
-            var blog = await _dbContext.Blogs
-                .Include(x => x.Posts)
+            var blogs = await _dbContext.Blogs
                 .Include(x => x.Author)
                 .Include(x => x.BlogImage)
-                .FirstOrDefaultAsync();
-
-            var areas = await _dbContext.Areas
-                .Include(x => x.Region.Market)
+                .Include(x => x.Posts)
                 .ToListAsync();
 
-            var markets = await _dbContext.Markets
-                        .Include(x => x.Regions)
-                        .ThenInclude(x => x.Areas)
-                        .ThenInclude(x => x.Retailers)
-                        .ThenInclude(x => x.RetailerSites)
-                        .ToListAsync();
-
-            var retailers = await _dbContext.Retailers
-                .Include(x => x.Area.Region.Market)
-                .Include(x => x.RetailerGroup)
-                .Include(x => x.RetailerSites)
-                    .ThenInclude(x => x.RetailerCodes)
-                .Include(x => x.RetailerSites)
-                    .ThenInclude(x => x.Brand)
-                .ToListAsync();
-
-            Print(customer);
-            Print(country);
-            Print(blog);
+            Print(blogs.FirstOrDefault());
         }
 
         private static void Print<T>(T input)

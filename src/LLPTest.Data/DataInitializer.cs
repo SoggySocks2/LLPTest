@@ -110,15 +110,6 @@ namespace LLPTest.Data
             blogs.Reverse(); // To preserve Id ordering while saving.
             _dbContext.Blogs.AddRange(blogs);
             await _dbContext.SaveChangesAsync();
-
-            // Save in chunks to preserve the order in the generated keys.
-            var blogIds = _dbContext.Blogs.Local.Select(x => x.Id).ToList();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 1, 9));
-            await _dbContext.SaveChangesAsync();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 10, 18));
-            await _dbContext.SaveChangesAsync();
-            _dbContext.Posts.AddRange(PostSeed.Get(blogIds, 19, 27));
-            await _dbContext.SaveChangesAsync();
         }
     }
 }
