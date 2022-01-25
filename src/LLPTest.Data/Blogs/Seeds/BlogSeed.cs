@@ -8,7 +8,7 @@
 
             for (var i = from; i <= to; i++)
             {
-                var blog = new Blog($"Blog {i}");
+                var blog = new Blog($"Blog {i}", $"Blog Description {i}");
                 blog.AuthorId = authorIds[(i - 1) % authorIds.Count];
                 blogs.Add(blog);
             }

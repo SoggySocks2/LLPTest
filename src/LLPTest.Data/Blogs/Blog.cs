@@ -6,15 +6,17 @@ namespace LLPTest.Data.Blogs
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
 
         public Author Author { get; set; } = default!;
         public int AuthorId { get; set; }
 
         public List<Post> Posts { get; } = new();
 
-        public Blog(string name)
+        public Blog(string name, string description)
         {
             Name = name;
+            Description = description;
         }
 
         public override string ToString()

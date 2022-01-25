@@ -9,8 +9,6 @@ namespace LLPTest.Data.Blogs.Configuration
         {
             builder.ToTable(nameof(Post));
 
-            builder.Property(x => x.Title).IsRequired().HasMaxLength(250);
-
             builder.HasKey(x => x.Id);
         }
     }
