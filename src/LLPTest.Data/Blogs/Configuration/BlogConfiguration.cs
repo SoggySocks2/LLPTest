@@ -9,6 +9,8 @@ namespace LLPTest.Data.Blogs.Configuration
         {
             builder.ToTable(nameof(Blog));
 
+            builder.HasOne(x => x.BlogImage).WithOne().HasForeignKey<BlogImage>();
+
             builder.HasKey(x => x.Id);
         }
     }

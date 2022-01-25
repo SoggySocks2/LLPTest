@@ -27,6 +27,7 @@ namespace LLPTest.ConsoleApp
             var blog = await _dbContext.Blogs
                 .Include(x => x.Posts)
                 .Include(x => x.Author)
+                .Include(x => x.BlogImage)
                 .FirstOrDefaultAsync();
 
             var areas = await _dbContext.Areas

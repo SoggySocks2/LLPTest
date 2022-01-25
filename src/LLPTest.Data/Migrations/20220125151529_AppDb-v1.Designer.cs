@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LLPTest.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220125143721_AppDb-v1")]
+    [Migration("20220125151529_AppDb-v1")]
     partial class AppDbv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,20 @@ namespace LLPTest.Data.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Blog");
+                });
+
+            modelBuilder.Entity("LLPTest.Data.Blogs.BlogImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BlogImage");
                 });
 
             modelBuilder.Entity("LLPTest.Data.Blogs.Post", b =>
@@ -344,6 +358,15 @@ namespace LLPTest.Data.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("LLPTest.Data.Blogs.BlogImage", b =>
+                {
+                    b.HasOne("LLPTest.Data.Blogs.Blog", null)
+                        .WithOne("BlogImage")
+                        .HasForeignKey("LLPTest.Data.Blogs.BlogImage", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LLPTest.Data.Blogs.Post", b =>
                 {
                     b.HasOne("LLPTest.Data.Blogs.Blog", "Blog")
@@ -532,6 +555,9 @@ namespace LLPTest.Data.Migrations
 
             modelBuilder.Entity("LLPTest.Data.Blogs.Blog", b =>
                 {
+                    b.Navigation("BlogImage")
+                        .IsRequired();
+
                     b.Navigation("Posts");
                 });
 

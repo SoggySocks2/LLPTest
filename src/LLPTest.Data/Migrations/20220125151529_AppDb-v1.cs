@@ -149,6 +149,24 @@ namespace LLPTest.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogImage_Blog_Id",
+                        column: x => x.Id,
+                        principalTable: "Blog",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Post",
                 columns: table => new
                 {
@@ -370,6 +388,9 @@ namespace LLPTest.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Address");
+
+            migrationBuilder.DropTable(
+                name: "BlogImage");
 
             migrationBuilder.DropTable(
                 name: "CustomerRetailerSite");

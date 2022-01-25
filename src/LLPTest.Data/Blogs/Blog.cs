@@ -11,6 +11,8 @@ namespace LLPTest.Data.Blogs
         public Author Author { get; set; } = default!;
         public int AuthorId { get; set; }
 
+        public BlogImage BlogImage { get; set; } = default!;
+
         public List<Post> Posts { get; } = new();
 
         public Blog(string name, string description)
